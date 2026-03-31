@@ -3,9 +3,9 @@ from fastapi import HTTPException
 from app.repository import wallets as wallets_repository
 
 
-def add_incomes(operation: OperationRequest):
+def add_income(operation: OperationRequest):
     # Проверить, существует ли кошелек
-    if wallets_repository.is_wallet_exist(wallet_name=operation.wallet_name):
+    if not wallets_repository.is_wallet_exist(wallet_name=operation.wallet_name):
         raise HTTPException(
             status_code=404,
             detail=f"Wallet '{operation.wallet_name}' not found"
@@ -26,7 +26,7 @@ def add_incomes(operation: OperationRequest):
 
 def add_expense(operation: OperationRequest):
     # Проверить, существует ли кошелек
-    if wallets_repository.is_wallet_exist(wallet_name=operation.wallet_name):
+    if not wallets_repository.is_wallet_exist(wallet_name=operation.wallet_name):
         raise HTTPException(
             status_code=404,
             detail=f"Wallet '{operation.wallet_name}' not found"
@@ -40,10 +40,8 @@ def add_expense(operation: OperationRequest):
                    f"Available: {balance}" # Недостаточно средств. Доступно:
         )
 
-
     # Вычесть расход из баланса
-    new_balance = wallets_repository.add_expense(wallet_name=operation.wallet_name)
-
+    new_balance = wallets_repository.add_expense(wallet_name=operation.wallet_name, amount=operation.amount)
     # Возвратить информацию об операции
     return {
       "message": "Expense added",

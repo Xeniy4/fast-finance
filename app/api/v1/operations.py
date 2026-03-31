@@ -7,8 +7,8 @@ router = APIRouter()
 
 
 @router.post("/operations/income")  # income - доход
-def add_incomes(operation: OperationRequest):
-    return operation_service.add_incomes(operation=operation)
+def add_income(operation: OperationRequest):
+    return operation_service.add_income(operation=operation)
 
 
 @router.post("/operations/expense")  # expense - расход

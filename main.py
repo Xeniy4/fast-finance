@@ -11,6 +11,15 @@ main - путь к нашему файлу
 app - инстанс класса
 --reload - параметр, который перезапустит сервер
 закрыть сервер Ctrl+C
+документация {local_host}/docs
+Например: http://127.0.0.1:8000/docs
+
+Если сервер не обновляется, закрыть его, в терминале отправить:
+tasklist | findstr python
+взять номер задачи и следом отправить:
+taskkill /PID <номер_PID> /F например taskkill /PID 10960 /F
+запустить сервер как обычно
+
 
 
 на 46:37 закончена начальная архитектура. Она состоит из 3х слоев: роутер(v1), сервис(service) и репозиторий(repository)
@@ -27,5 +36,5 @@ app - инстанс класса
 
 app = FastAPI()
 
-app.include_router(wallet_router, prefix="/api/v1/", tags=["wallet"])
-app.include_router(operations_router, prefix="/api/v1/", tags=["operations"])
+app.include_router(wallet_router, prefix="/api/v1", tags=["wallet"])
+app.include_router(operations_router, prefix="/api/v1", tags=["operations"])
