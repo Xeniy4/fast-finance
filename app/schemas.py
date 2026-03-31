@@ -1,14 +1,16 @@
+from decimal import Decimal
+
 from pydantic import BaseModel, Field, field_validator
 
 
 class OperationRequest(BaseModel):
     wallet_name: str = Field(..., max_length=127)  # ... (называется Ellipsis) - значит поле обязательно в заполнении)
-    amount: float
+    amount: Decimal
     descriptions: str | None = Field(None, max_length=255)  # поле не обязательно к заполнению и дефолтное значение None
 
     # Валидация, что поле положительное
     @field_validator('amount')
-    def amount_must_be_positive(cls, value: float) -> float:
+    def amount_must_be_positive(cls, value: Decimal) -> Decimal:
         # Проверить, что значение больше 0
         if value <= 0:
             raise ValueError("Amount must be positive")
@@ -31,7 +33,7 @@ class OperationRequest(BaseModel):
 
 class CreateWalletRequest(BaseModel):
     name: str = Field(..., max_length=127)
-    initial_balance: float = 0
+    initial_balance: Decimal = 0
 
 
     # Удаление лишних пробелов по бокам
@@ -44,7 +46,7 @@ class CreateWalletRequest(BaseModel):
 
     # Валидация, что баланс не отрицательный
     @field_validator('initial_balance')
-    def balance_not_negative(cls, value: float) -> float:
+    def balance_not_negative(cls, value: Decimal) -> Decimal:
         if value < 0:
             raise ValueError("initial balance cannot be negative")
         return value
