@@ -50,3 +50,15 @@ class CreateWalletRequest(BaseModel):
         if value < 0:
             raise ValueError("initial balance cannot be negative")
         return value
+
+
+class UsersRequest(BaseModel):
+    login: str = Field(..., max_length=100)
+
+
+class UsersResponse(UsersRequest):
+    model_config = {"from_attributes": True}  # преобразовывает модель БД в pydantic модель
+
+    id: int
+
+

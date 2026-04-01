@@ -1,6 +1,4 @@
 from sqlalchemy.orm import Session
-
-from app.database import SessionLocal
 from app.schemas import OperationRequest
 from fastapi import HTTPException
 from app.repository import wallets as wallets_repository
