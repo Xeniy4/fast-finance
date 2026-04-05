@@ -10,4 +10,4 @@ app.include_router(wallet_router, prefix="/api/v1", tags=["wallet"])
 app.include_router(operations_router, prefix="/api/v1", tags=["operations"])
 app.include_router(users_router, prefix="/api/v1", tags=["users"])
 
-Base.metadata.create_all(bind=engine) # при запуске приложения будут созданы все сущности, которые описали. Создает файл finance.db
+Base.metadata.create_all(bind=engine) # При запуске приложения будут созданы все сущности, которые описали. Создает файл finance.db
