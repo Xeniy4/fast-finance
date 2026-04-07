@@ -1,6 +1,5 @@
 import random
 import string
-
 import faker
 
 
@@ -12,6 +11,7 @@ def get_random_name() -> str:
     fake = faker.Faker()
     name = fake.first_name()
     return name
+
 
 def gen_random_str(length: int = 50) -> str:
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))

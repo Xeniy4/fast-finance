@@ -11,3 +11,9 @@ app.include_router(operations_router, prefix="/api/v1", tags=["operations"])
 app.include_router(users_router, prefix="/api/v1", tags=["users"])
 
 Base.metadata.create_all(bind=engine) # При запуске приложения будут созданы все сущности, которые описали. Создает файл finance.db
+
+
+#  Добавить линтер
+#  Покрыть тестами все ручки
+#  перенести фикстуры в helpers/fixtures
+#  настройки логов оставить в conftest
