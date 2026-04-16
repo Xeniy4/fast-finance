@@ -13,5 +13,5 @@ def get_random_name() -> str:
     return name
 
 
-def gen_random_str(length: int = 50) -> str:
+def gen_random_str(length: int = 20) -> str:
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))

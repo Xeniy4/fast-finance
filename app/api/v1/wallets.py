@@ -18,4 +18,4 @@ def get_balance(db: Session = Depends(get_db), current_user: User = Depends(get_
 # В этом методе имя кошелька(wallet_name) передается в path-параметре
 @router.post("/wallets")
 def create_wallet(wallet: CreateWalletRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    return wallets_service.create_wallet(db=db, current_user=current_user, wallet=wallet) # тут он не добавил current_user 1:40:27
+    return wallets_service.create_wallet(db=db, current_user=current_user, wallet=wallet)

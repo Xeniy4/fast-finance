@@ -50,8 +50,7 @@ def test_get_balance_unauthorized(client):
     wallet_name = get_random_name()
     response = client.get(
         url=Endpoints.balance.value,
-        params={"wallet_name":wallet_name},
-        headers={"Authorization": f"Bearer notexists"}
+        params={"wallet_name":wallet_name}
     )
     assert response.status_code == http.HTTPStatus.UNAUTHORIZED
 
