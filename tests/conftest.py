@@ -1,25 +1,31 @@
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+import logging
 from typing import Generator
-from sqlalchemy.orm import Session
+
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
+
 from app.database import Base
 from app.database_models import User, Wallet
 from app.dependency import get_db
 from main import app
-from fastapi.testclient import TestClient
-import logging
+from tests.helpers.data_tests import gen_random_amount, get_random_name
 from tests.helpers.utils import LoggingClient
-from tests.helpers.data_tests import get_random_name, gen_random_amount
 
 logger = logging.getLogger(__name__)
 
 TEST_DATABASE_URL = "sqlite:///./test.db"
-test_engine = create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
+test_engine = create_engine(
+    TEST_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 
-TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+TestSessionLocal = sessionmaker(
+    autocommit=False, autoflush=False, bind=test_engine
+)
 
-def pytest_configure():
+
+def pytest_configure() -> None:
     # Отключение логирования для Faker
     faker_logger = logging.getLogger("faker")
     faker_logger.disabled = True
@@ -27,11 +33,11 @@ def pytest_configure():
     logging.getLogger("faker.generator").disabled = True
 
 
-
 @pytest.fixture
-def client():
+def client() -> Generator[LoggingClient, None, None]:
     with TestClient(app) as test_client:
         yield LoggingClient(test_client)
+
 
 # Функция для получения сессии БД через dependency injection в FastApi
 def get_test_db() -> Generator[Session, None, None]:
@@ -43,15 +49,13 @@ def get_test_db() -> Generator[Session, None, None]:
         db.close()  # бд отключается
 
 
-app.dependency_overrides[get_db] = get_test_db  # dependency_overrides функция заменяется на указанную
-
-# @pytest.fixture()
-# def client():
-#     yield TestClient(app) # Объект TestClient создается относительно объекта app. Нужно для того, чтобы фикстура "подхватилась".
+app.dependency_overrides[
+    get_db
+] = get_test_db  # dependency_overrides функция заменяется на указанную
 
 
 @pytest.fixture(scope="session")
-def setup_db():
+def setup_db() -> Generator[None, None, None]:
     """Очищает БД для каждого теста"""
     Base.metadata.create_all(bind=test_engine)  # создает тестовую таблицу
     yield
@@ -60,7 +64,7 @@ def setup_db():
 
 # @pytest.fixture(autouse=True)
 @pytest.fixture
-def db_session(setup_db) -> Generator[Session, None, None]:
+def db_session(setup_db: Session) -> Generator[Session, None, None]:
     """Подключение к БД в тесте"""
     db = TestSessionLocal()
     try:
@@ -70,7 +74,7 @@ def db_session(setup_db) -> Generator[Session, None, None]:
 
 
 @pytest.fixture(autouse=True)
-def create_user(db_session) -> Generator[User, None, None]:
+def create_user(db_session: Session) -> Generator[User, None, None]:
     user_login = get_random_name()
     user = User(login=user_login)
     db_session.add(user)
@@ -84,8 +88,7 @@ def create_user(db_session) -> Generator[User, None, None]:
 
 @pytest.fixture
 def create_user_wallet(
-        create_user: User,
-        db_session: Session
+    create_user: User, db_session: Session
 ) -> Generator[Wallet, None, None]:
     """
     Создание кошелька для указанного пользователя.
@@ -97,11 +100,7 @@ def create_user_wallet(
     balance = gen_random_amount(100, 200)
     wallet_name = get_random_name()
 
-    wallet = Wallet(
-        name=wallet_name,
-        balance=balance,
-        user_id=create_user.id
-    )
+    wallet = Wallet(name=wallet_name, balance=balance, user_id=create_user.id)
     db_session.add(wallet)
     db_session.commit()
     db_session.refresh(instance=wallet)

@@ -6,3 +6,9 @@ pytest==9.0.2
 httpx==0.28.1
 faker==40.12.0
 allure-pytest
+pre-commit==4.6.0
+black==23.3.0
+flake8==6.1.0
+pylint==2.17.0
+mypy==1.4.0
+ruff==0.0.270

@@ -1,8 +1,7 @@
 import http
-from tests.conftest import create_user_wallet
-from tests.helpers.endpoints import Endpoints
 
 from tests.helpers.data_tests import get_random_name
+from tests.helpers.endpoints import Endpoints
 
 
 def test_get_balance(create_user_wallet, create_user, client):
@@ -15,8 +14,8 @@ def test_get_balance(create_user_wallet, create_user, client):
     """
     response = client.get(
         url=Endpoints.balance.value,
-        params={"wallet_name":create_user_wallet.name},
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        params={"wallet_name": create_user_wallet.name},
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     assert response.status_code == http.HTTPStatus.OK
     assert response.json()["wallet"] == create_user_wallet.name
@@ -33,7 +32,7 @@ def test_get_balance_no_wallet(create_user_wallet, create_user, client):
     """
     response = client.get(
         url=Endpoints.balance.value,
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     assert response.status_code == http.HTTPStatus.OK
     assert response.json()["total_balance"] == create_user_wallet.balance
@@ -49,8 +48,7 @@ def test_get_balance_unauthorized(client):
     """
     wallet_name = get_random_name()
     response = client.get(
-        url=Endpoints.balance.value,
-        params={"wallet_name":wallet_name}
+        url=Endpoints.balance.value, params={"wallet_name": wallet_name}
     )
     assert response.status_code == http.HTTPStatus.UNAUTHORIZED
 
@@ -66,8 +64,8 @@ def test_get_balance_wallet_not_exist(create_user, client):
     wallet_name = get_random_name()
     response = client.get(
         url=Endpoints.balance.value,
-        params={"wallet_name":wallet_name},
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        params={"wallet_name": wallet_name},
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     print(f"resp = {response}")
     assert response.status_code == http.HTTPStatus.NOT_FOUND

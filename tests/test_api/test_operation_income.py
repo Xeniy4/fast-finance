@@ -1,9 +1,12 @@
 import http
 
 from app.database_models import User, Wallet
+from tests.helpers.data_tests import (
+    gen_random_amount,
+    gen_random_str,
+    get_random_name,
+)
 from tests.helpers.endpoints import Endpoints
-
-from tests.helpers.data_tests import gen_random_amount, get_random_name, gen_random_str
 
 
 def test_add_income_success(db_session, client):
@@ -41,9 +44,9 @@ def test_add_income_success(db_session, client):
         json={  # через модель OperationRequest не получилось реализовать, тк у json проблемы с типом Decimal
             "wallet_name": wallet.name,
             "amount": amount,
-            "descriptions": descriptions
+            "descriptions": descriptions,
         },
-        headers={"Authorization": f"Bearer {user.login}"}
+        headers={"Authorization": f"Bearer {user.login}"},
     )
 
     # Assert
@@ -78,9 +81,9 @@ def test_add_income_empty_wallet_name(create_user_wallet, create_user, client):
         json={
             "wallet_name": "  ",
             "amount": amount,
-            "descriptions": descriptions
+            "descriptions": descriptions,
         },
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     assert response.status_code == http.HTTPStatus.UNPROCESSABLE_ENTITY
 
@@ -108,9 +111,9 @@ def test_add_income_wallet_not_exist(create_user_wallet, create_user, client):
         json={
             "wallet_name": wallet_name,
             "amount": amount,
-            "descriptions": descriptions
+            "descriptions": descriptions,
         },
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -137,9 +140,9 @@ def test_add_income_negative_amount(create_user_wallet, create_user, client):
         json={
             "wallet_name": create_user_wallet.name,
             "amount": -20,
-            "descriptions": descriptions
+            "descriptions": descriptions,
         },
-        headers={"Authorization": f"Bearer {create_user.login}"}
+        headers={"Authorization": f"Bearer {create_user.login}"},
     )
     assert response.status_code == http.HTTPStatus.UNPROCESSABLE_ENTITY
 
@@ -167,8 +170,8 @@ def test_add_income_unauthorized(client):
         json={
             "wallet_name": wallet_name,
             "amount": amount,
-            "descriptions": descriptions
+            "descriptions": descriptions,
         },
-        headers={"Authorization": f"Bearer notexists"}
+        headers={"Authorization": "Bearer notexists"},
     )
     assert response.status_code == http.HTTPStatus.UNAUTHORIZED

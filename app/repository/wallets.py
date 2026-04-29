@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from sqlalchemy.orm import Session
 
-from app.database_models import Wallet, User
+from app.database_models import Wallet
 
 
 def is_wallet_exist(db: Session, user_id: int, wallet_name: str) -> bool:
@@ -17,10 +17,17 @@ def is_wallet_exist(db: Session, user_id: int, wallet_name: str) -> bool:
         Результат наличия кошелька
     """
     # находим в бд такую запись и проверяем, что этот результат не равен None
-    return db.query(Wallet).filter(Wallet.name == wallet_name, Wallet.user_id == user_id).first() is not None
+    return (
+        db.query(Wallet)
+        .filter(Wallet.name == wallet_name, Wallet.user_id == user_id)
+        .first()
+        is not None
+    )
 
 
-def add_income(db: Session, user_id: int, wallet_name: str, amount: Decimal) -> Wallet:
+def add_income(
+    db: Session, user_id: int, wallet_name: str, amount: Decimal
+) -> Wallet:
     """Добавить доход в кошелек по имени кошелька
 
     Args:
@@ -32,12 +39,18 @@ def add_income(db: Session, user_id: int, wallet_name: str, amount: Decimal) -> 
     Returns:
         Итоговая сумма
     """
-    wallet = db.query(Wallet).filter(Wallet.name == wallet_name, Wallet.user_id == user_id).first()  # находим в бд такую запись
+    wallet = (
+        db.query(Wallet)
+        .filter(Wallet.name == wallet_name, Wallet.user_id == user_id)
+        .first()
+    )  # находим в бд такую запись
     wallet.balance += amount
     return wallet  # возвращаем объект модели
 
 
-def get_wallet_balance_by_name(db: Session, user_id: int, wallet_name: str) -> Wallet:
+def get_wallet_balance_by_name(
+    db: Session, user_id: int, wallet_name: str
+) -> Wallet:
     """Получить баланс кошелька по имени кошелька
 
     Args:
@@ -48,10 +61,16 @@ def get_wallet_balance_by_name(db: Session, user_id: int, wallet_name: str) -> W
     Returns:
         Сумма баланса кошелька
     """
-    return db.query(Wallet).filter(Wallet.name == wallet_name, Wallet.user_id == user_id).first()  # находим в бд такую запись
+    return (
+        db.query(Wallet)
+        .filter(Wallet.name == wallet_name, Wallet.user_id == user_id)
+        .first()
+    )  # находим в бд такую запись
 
 
-def add_expense(db: Session, user_id: int, wallet_name: str, amount: Decimal) -> Wallet:
+def add_expense(
+    db: Session, user_id: int, wallet_name: str, amount: Decimal
+) -> Wallet:
     """Добавить расход в кошелек по имени кошелька
 
     Args:
@@ -63,7 +82,11 @@ def add_expense(db: Session, user_id: int, wallet_name: str, amount: Decimal) ->
     Returns:
         Итоговая сумма
     """
-    wallet = db.query(Wallet).filter(Wallet.name == wallet_name, Wallet.user_id == user_id).first()  # находим в бд такую запись
+    wallet = (
+        db.query(Wallet)
+        .filter(Wallet.name == wallet_name, Wallet.user_id == user_id)
+        .first()
+    )  # находим в бд такую запись
     wallet.balance -= amount
     return wallet  # возвращаем объект модели
 
@@ -80,7 +103,9 @@ def get_all_wallets(db: Session, user_id: int) -> list[Wallet]:
     return db.query(Wallet).filter(Wallet.user_id == user_id).all()
 
 
-def create_wallet(db: Session, user_id: int, wallet_name: str, amount: Decimal) -> Wallet:
+def create_wallet(
+    db: Session, user_id: int, wallet_name: str, amount: Decimal
+) -> Wallet:
     """Создать новый кошелек
 
     Args:
@@ -92,7 +117,9 @@ def create_wallet(db: Session, user_id: int, wallet_name: str, amount: Decimal) 
     Returns:
         Итоговая сумма
     """
-    wallet = Wallet(name=wallet_name, balance=amount, user_id=user_id)  # создали объект
+    wallet = Wallet(
+        name=wallet_name, balance=amount, user_id=user_id
+    )  # создали объект
     db.add(wallet)  # добавили объект в БД
     db.flush()  # добавляет генерацию нового id
     return wallet

@@ -1,5 +1,6 @@
 import random
 import string
+
 import faker
 
 
@@ -14,4 +15,7 @@ def get_random_name() -> str:
 
 
 def gen_random_str(length: int = 20) -> str:
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
+    return ''.join(
+        random.choice(string.ascii_uppercase + string.digits)
+        for _ in range(length)
+    )

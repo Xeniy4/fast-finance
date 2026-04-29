@@ -4,9 +4,13 @@ from pydantic import BaseModel, Field, field_validator
 
 
 class OperationRequest(BaseModel):
-    wallet_name: str = Field(..., max_length=127)  # ... (называется Ellipsis) - значит поле обязательно в заполнении)
+    wallet_name: str = Field(
+        ..., max_length=127
+    )  # ... (называется Ellipsis) - значит поле обязательно в заполнении)
     amount: Decimal
-    descriptions: str | None = Field(None, max_length=255)  # поле не обязательно к заполнению и дефолтное значение None
+    descriptions: str | None = Field(
+        None, max_length=255
+    )  # поле не обязательно к заполнению и дефолтное значение None
 
     # Валидация, что поле положительное
     @field_validator('amount')
@@ -16,7 +20,6 @@ class OperationRequest(BaseModel):
             raise ValueError("Amount must be positive")
         # Вернуть значение
         return value
-
 
     # Удаление лишних пробелов по бокам
     @field_validator('wallet_name')
@@ -34,7 +37,6 @@ class OperationRequest(BaseModel):
 class CreateWalletRequest(BaseModel):
     name: str = Field(..., max_length=127)
     initial_balance: Decimal = 0
-
 
     # Удаление лишних пробелов по бокам
     @field_validator('name')
@@ -57,8 +59,8 @@ class UsersRequest(BaseModel):
 
 
 class UsersResponse(UsersRequest):
-    model_config = {"from_attributes": True}  # преобразовывает модель БД в pydantic модель
+    model_config = {
+        "from_attributes": True
+    }  # преобразовывает модель БД в pydantic модель
 
     id: int
-
-

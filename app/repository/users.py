@@ -13,7 +13,9 @@ def get_user(db: Session, login: str) -> User | None:
     Returns:
         User: модель ответа с полями пользователя из БД
     """
-    return db.query(User).filter(User.login == login).scalar() # находим в бд такую запись.
+    return (
+        db.query(User).filter(User.login == login).scalar()
+    )  # находим в бд такую запись.
     # .scalar() - алхимия(бд) преобразовывает результат своего запроса в результат экземпляра класса User
 
 
@@ -27,7 +29,7 @@ def create_user(db: Session, login: str) -> User:
     Returns:
         User: модель ответа с полями пользователя из БД
     """
-    user=User(login=login)
-    db.add(user) # добавляет логин в таблицу user
+    user = User(login=login)
+    db.add(user)  # добавляет логин в таблицу user
     db.flush()  # добавляет записи в таблице user id
     return user

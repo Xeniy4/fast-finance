@@ -10,7 +10,7 @@ from typing import Generator
 
 from fastapi import HTTPException
 from fastapi.params import Depends
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
@@ -20,21 +20,22 @@ from app.repository import users as users_repository
 sequrity = HTTPBearer()
 
 
-
-#Функция для получения сессии БД через dependency injection в FastApi
+# Функция для получения сессии БД через dependency injection в FastApi
 def get_db() -> Generator[Session, None, None]:
     # происходит подключение к бд
     db = SessionLocal()
     try:
-        yield db # весь код функции должен выполняться здесь
+        yield db  # весь код функции должен выполняться здесь
     finally:
-        db.close() # бд отключается
+        db.close()  # бд отключается
 
 
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(sequrity),
-                     db: Session = Depends(get_db)) -> User:
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(sequrity),
+    db: Session = Depends(get_db),
+) -> User:
     login = credentials.credentials
-    user = users_repository.get_user(db=db,login=login)
+    user = users_repository.get_user(db=db, login=login)
 
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorised")
