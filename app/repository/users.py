@@ -16,7 +16,8 @@ def get_user(db: Session, login: str) -> User | None:
     return (
         db.query(User).filter(User.login == login).scalar()
     )  # находим в бд такую запись.
-    # .scalar() - алхимия(бд) преобразовывает результат своего запроса в результат экземпляра класса User
+    # .scalar() - алхимия(бд) преобразовывает результат
+    # своего запроса в результат экземпляра класса User
 
 
 def create_user(db: Session, login: str) -> User:

@@ -13,7 +13,8 @@ app.include_router(users_router, prefix="/api/v1", tags=["users"])
 
 Base.metadata.create_all(
     bind=engine
-)  # При запуске приложения будут созданы все сущности, которые описали. Создает файл finance.db
+)  # При запуске приложения будут созданы все сущности,
+# которые описали. Создает файл finance.db
 
 
 # Покрыть тестами все ручки.

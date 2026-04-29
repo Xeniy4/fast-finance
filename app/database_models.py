@@ -22,12 +22,15 @@ class Wallet(Base):
 
     id: Mapped[int] = mapped_column(
         primary_key=True
-    )  # primary_key - признак, который объясняет БД, что этот атрибут является уникальным.
+    )  # primary_key - признак, который объясняет БД,
+    # что этот атрибут является уникальным.
     name: Mapped[str]
     balance: Mapped[
         Decimal
     ]  # Не может быть float, тк в python проблема с округлением.
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     # ForeignKey("user.id") ссылаемся кошельком на конкретного юзера.
-    # Получается связь 1 ко многим (у юзера user_id может быть много wallet, но у wallet может быть только 1 user_id)
+    # Получается связь 1 ко многим
+    # (у юзера user_id может быть много wallet,
+    # но у wallet может быть только 1 user_id)
     # nullable=False - кошелек не может быть создан без юзера

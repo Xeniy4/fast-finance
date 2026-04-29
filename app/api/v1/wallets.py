@@ -9,7 +9,8 @@ from app.service import wallets as wallets_service
 router = APIRouter()
 
 
-# Запрос баланса кошелька. Имя кошелька(wallet_name) передается в query-параметрах
+# Запрос баланса кошелька.
+# Имя кошелька(wallet_name) передается в query-параметрах
 @router.get("/balance")
 def get_balance(
     db: Session = Depends(get_db),
