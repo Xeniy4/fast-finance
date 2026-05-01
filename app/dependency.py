@@ -32,7 +32,7 @@ def get_db() -> Generator[Session, None, None]:
         db.close()  # бд отключается
 
 
-def get_current_user(
+def get_current_user_dependence(
     credentials: HTTPAuthorizationCredentials = Depends(sequrity),
     db: Session = Depends(get_db),
 ) -> User:
