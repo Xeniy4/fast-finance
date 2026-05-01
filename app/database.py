@@ -1,10 +1,5 @@
-from sqlalchemy import (
-    create_engine,
-)
-from sqlalchemy.orm import (
-    declarative_base,
-    sessionmaker,
-)
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
 """
 engine - движок для подключения в БД. 

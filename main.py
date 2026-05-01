@@ -1,14 +1,9 @@
-from fastapi import (
-    FastAPI,
-)
+from fastapi import FastAPI
 
 from app.api.v1.operations import router as operations_router
 from app.api.v1.users import router as users_router
 from app.api.v1.wallets import router as wallet_router
-from app.database import (
-    Base,
-    engine,
-)
+from app.database import Base, engine
 
 app = FastAPI()
 

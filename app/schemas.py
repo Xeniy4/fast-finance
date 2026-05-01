@@ -1,12 +1,6 @@
-from decimal import (
-    Decimal,
-)
+from decimal import Decimal
 
-from pydantic import (
-    BaseModel,
-    Field,
-    field_validator,
-)
+from pydantic import BaseModel, Field, field_validator
 
 
 class OperationRequest(BaseModel):

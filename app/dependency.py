@@ -8,30 +8,15 @@ Sequrity object - это структура, которая описывает
 Создают, чтобы четко определить правила доступа: токены, ключи и т.п.
 """
 
-from typing import (
-    Generator,
-)
+from typing import Generator
 
-from fastapi import (
-    HTTPException,
-)
-from fastapi.params import (
-    Depends,
-)
-from fastapi.security import (
-    HTTPAuthorizationCredentials,
-    HTTPBearer,
-)
-from sqlalchemy.orm import (
-    Session,
-)
+from fastapi import HTTPException
+from fastapi.params import Depends
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from sqlalchemy.orm import Session
 
-from app.database import (
-    SessionLocal,
-)
-from app.database_models import (
-    User,
-)
+from app.database import SessionLocal
+from app.database_models import User
 from app.repository import users as users_repository
 
 sequrity = HTTPBearer()

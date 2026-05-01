@@ -1,17 +1,9 @@
-from fastapi import (
-    HTTPException,
-)
-from sqlalchemy.orm import (
-    Session,
-)
+from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
-from app.database_models import (
-    User,
-)
+from app.database_models import User
 from app.repository import wallets as wallets_repository
-from app.schemas import (
-    OperationRequest,
-)
+from app.schemas import OperationRequest
 
 
 def add_income(db: Session, current_user: User, operation: OperationRequest):

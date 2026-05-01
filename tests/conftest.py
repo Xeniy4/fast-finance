@@ -1,40 +1,17 @@
 import logging
-from typing import (
-    Generator,
-)
+from typing import Generator
 
 import pytest
-from fastapi.testclient import (
-    TestClient,
-)
-from sqlalchemy import (
-    create_engine,
-)
-from sqlalchemy.orm import (
-    Session,
-    sessionmaker,
-)
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
 
-from app.database import (
-    Base,
-)
-from app.database_models import (
-    User,
-    Wallet,
-)
-from app.dependency import (
-    get_db,
-)
-from main import (
-    app,
-)
-from tests.helpers.data_tests import (
-    gen_random_amount,
-    get_random_name,
-)
-from tests.helpers.utils import (
-    LoggingClient,
-)
+from app.database import Base
+from app.database_models import User, Wallet
+from app.dependency import get_db
+from main import app
+from tests.helpers.data_tests import gen_random_amount, get_random_name
+from tests.helpers.utils import LoggingClient
 
 logger = logging.getLogger(__name__)
 

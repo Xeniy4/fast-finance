@@ -1,14 +1,8 @@
-from decimal import (
-    Decimal,
-)
+from decimal import Decimal
 
-from sqlalchemy.orm import (
-    Session,
-)
+from sqlalchemy.orm import Session
 
-from app.database_models import (
-    Wallet,
-)
+from app.database_models import Wallet
 
 
 def is_wallet_exist(db: Session, user_id: int, wallet_name: str) -> bool:

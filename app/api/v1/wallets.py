@@ -1,21 +1,9 @@
-from fastapi import (
-    APIRouter,
-    Depends,
-)
-from sqlalchemy.orm import (
-    Session,
-)
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
-from app.database_models import (
-    User,
-)
-from app.dependency import (
-    get_current_user,
-    get_db,
-)
-from app.schemas import (
-    CreateWalletRequest,
-)
+from app.database_models import User
+from app.dependency import get_current_user, get_db
+from app.schemas import CreateWalletRequest
 from app.service import wallets as wallets_service
 
 router = APIRouter()

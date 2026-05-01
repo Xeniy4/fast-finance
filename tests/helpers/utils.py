@@ -1,9 +1,7 @@
 import json
 import logging
 
-from httpx import (
-    Client,
-)
+from httpx import Client
 
 logger = logging.getLogger(__name__)
 
