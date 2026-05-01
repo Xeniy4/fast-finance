@@ -1,12 +1,17 @@
 import http
 
-from app.database_models import User, Wallet
+from app.database_models import (
+    User,
+    Wallet,
+)
 from tests.helpers.data_tests import (
     gen_random_amount,
     gen_random_str,
     get_random_name,
 )
-from tests.helpers.endpoints import Endpoints
+from tests.helpers.endpoints import (
+    Endpoints,
+)
 
 
 def test_add_expense_success(db_session, client):

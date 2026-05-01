@@ -1,7 +1,12 @@
 import http
 
-from tests.helpers.data_tests import gen_random_amount, gen_random_str
-from tests.helpers.endpoints import Endpoints
+from tests.helpers.data_tests import (
+    gen_random_amount,
+    gen_random_str,
+)
+from tests.helpers.endpoints import (
+    Endpoints,
+)
 
 
 def test_create_wallet_auth(create_user, client):

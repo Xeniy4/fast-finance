@@ -1,11 +1,25 @@
-from typing import Any
+from typing import (
+    Any,
+)
 
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
+from fastapi import (
+    APIRouter,
+    Depends,
+)
+from sqlalchemy.orm import (
+    Session,
+)
 
-from app.database_models import User
-from app.dependency import get_current_user, get_db
-from app.schemas import OperationRequest
+from app.database_models import (
+    User,
+)
+from app.dependency import (
+    get_current_user,
+    get_db,
+)
+from app.schemas import (
+    OperationRequest,
+)
 from app.service import operations as operation_service
 
 router = APIRouter()

@@ -1,8 +1,14 @@
-from fastapi import HTTPException
-from sqlalchemy.orm import Session
+from fastapi import (
+    HTTPException,
+)
+from sqlalchemy.orm import (
+    Session,
+)
 
 from app.repository import users as user_repository
-from app.schemas import UsersResponse
+from app.schemas import (
+    UsersResponse,
+)
 
 
 def create_user(db: Session, login: str) -> UsersResponse:

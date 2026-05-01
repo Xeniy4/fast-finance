@@ -1,7 +1,11 @@
 import http
 
-from tests.helpers.data_tests import get_random_name
-from tests.helpers.endpoints import Endpoints
+from tests.helpers.data_tests import (
+    get_random_name,
+)
+from tests.helpers.endpoints import (
+    Endpoints,
+)
 
 
 def test_get_balance(create_user_wallet, create_user, client):
