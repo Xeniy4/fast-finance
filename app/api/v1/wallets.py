@@ -1,3 +1,5 @@
+from typing import Union
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -16,7 +18,7 @@ def get_balance(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
     wallet_name: str | None = None,
-):
+) -> Union[dict[str, int], dict[str, Union[str, int]]]:
     return wallets_service.get_wallet(
         db=db, current_user=current_user, wallet_name=wallet_name
     )
@@ -28,7 +30,7 @@ def create_wallet(
     wallet: CreateWalletRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
-):
+) -> dict[str, Union[str, int]]:
     return wallets_service.create_wallet(
         db=db, current_user=current_user, wallet=wallet
     )

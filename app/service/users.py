@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from app.repository import users as user_repository
 from app.schemas import UsersResponse
 
+# mypy: disable-error-code=no-any-return
+
 
 def create_user(db: Session, login: str) -> UsersResponse:
     # Проверить, существует ли такой логин

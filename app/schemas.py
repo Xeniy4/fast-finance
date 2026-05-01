@@ -36,7 +36,7 @@ class OperationRequest(BaseModel):
 
 class CreateWalletRequest(BaseModel):
     name: str = Field(..., max_length=127)
-    initial_balance: Decimal = 0
+    initial_balance: Decimal = Decimal(0)
 
     # Удаление лишних пробелов по бокам
     @field_validator('name')

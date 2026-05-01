@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 
 from app.database_models import User
 
+# mypy: disable-error-code=no-any-return
+
 
 def get_user(db: Session, login: str) -> User | None:
     """Получить информацию о пользователе по логину

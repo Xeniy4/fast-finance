@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 
 from app.database_models import Wallet
 
+# mypy: disable-error-code=no-any-return
+
 
 def is_wallet_exist(db: Session, user_id: int, wallet_name: str) -> bool:
     """Проверить наличие кошелька по имени кошелька

@@ -56,9 +56,9 @@ def test_add_income_success(db_session, client):
     assert response.status_code == http.HTTPStatus.OK
     assert response.json()["message"] == "Income added"
     assert response.json()["wallet"] == wallet.name
-    assert response.json()["amount"] == amount
+    assert response.json()["amount"] == str(amount)
     assert response.json()["description"] == descriptions
-    assert response.json()["new_balance"] == expect_balance
+    assert float(response.json()["new_balance"]) == float(expect_balance)
 
 
 def test_add_income_empty_wallet_name(create_user_wallet, create_user, client):

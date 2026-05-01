@@ -1,3 +1,5 @@
+from typing import Union
+
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -8,7 +10,7 @@ from app.schemas import CreateWalletRequest
 
 def get_wallet(
     db: Session, current_user: User, wallet_name: str | None = None
-):
+) -> Union[dict[str, int], dict[str, Union[str, int]]]:
     # Если имя кошелька не указано (None) - считаем общий баланс
     if wallet_name is None:
         wallets = wallets_repository.get_all_wallets(
@@ -33,7 +35,7 @@ def get_wallet(
 
 def create_wallet(
     db: Session, current_user: User, wallet: CreateWalletRequest
-):
+) -> dict[str, Union[str, int]]:
     # Проверяем не существует ли такой же кошелек
     if wallets_repository.is_wallet_exist(
         db=db, user_id=current_user.id, wallet_name=wallet.name

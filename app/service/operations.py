@@ -1,3 +1,6 @@
+from decimal import Decimal
+from typing import Union
+
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
@@ -6,7 +9,9 @@ from app.repository import wallets as wallets_repository
 from app.schemas import OperationRequest
 
 
-def add_income(db: Session, current_user: User, operation: OperationRequest):
+def add_income(
+    db: Session, current_user: User, operation: OperationRequest
+) -> dict[str, Union[str, Decimal, None]]:
     # Проверить, существует ли кошелек
     if not wallets_repository.is_wallet_exist(
         db=db, user_id=current_user.id, wallet_name=operation.wallet_name
@@ -34,7 +39,9 @@ def add_income(db: Session, current_user: User, operation: OperationRequest):
     }
 
 
-def add_expense(db: Session, current_user: User, operation: OperationRequest):
+def add_expense(
+    db: Session, current_user: User, operation: OperationRequest
+) -> dict[str, Union[str, Decimal, None]]:
     # Проверить, существует ли кошелек
     if not wallets_repository.is_wallet_exist(
         db=db, user_id=current_user.id, wallet_name=operation.wallet_name
