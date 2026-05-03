@@ -99,7 +99,7 @@ def get_all_wallets(db: Session, user_id: int) -> list[Wallet]:
         user_id: Идентификатор юзера, за которого происходит запрос
 
     Returns:
-        Сумма
+        список моделей ответа с информацией о кошельках
     """
     return db.query(Wallet).filter(Wallet.user_id == user_id).all()
 
@@ -129,3 +129,25 @@ def create_wallet(
     db.add(wallet)  # добавили объект в БД
     db.flush()  # добавляет генерацию нового id
     return wallet
+
+
+def get_wallet_by_id(
+    db: Session,
+    user_id: int,
+    wallet_id: int,
+) -> Wallet | None:
+    """Проверить, существует ли у пользователя кошелек по указанному id
+
+    Args:
+        db: Сессия БД
+        wallet_id: id кошелька
+        user_id: Идентификатор юзера, за которого происходит запрос
+
+    Returns:
+        Информация о кошельке.
+    """
+    return (
+        db.query(Wallet)
+        .filter(Wallet.id == wallet_id, Wallet.user_id == user_id)
+        .scalar()
+    )
