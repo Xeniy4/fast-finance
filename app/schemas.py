@@ -6,6 +6,7 @@ from pydantic import (
     Field,
     field_validator,
 )
+from pydantic_core.core_schema import FieldValidationInfo
 
 from app.enum import CurrencyEnum
 
@@ -94,3 +95,25 @@ class OperationResponse(BaseModel):
     category: str | None = None
     subcategory: str | None = None
     created_at: datetime
+
+
+class TransferCreateSchema(BaseModel):
+    from_wallet_id: int
+    to_wallet_id: int
+    amount: Decimal
+
+    @field_validator("to_wallet_id")
+    @classmethod
+    def wallets_must_differ(
+        cls, v: int, info: FieldValidationInfo
+    ) -> int:  # валидация отличия id кошельков, т.к.
+        # нельзя переводить в тот же кошелек
+        if "from_wallet_id" in info.data and v == info.data["from_wallet_id"]:
+            raise ValueError("Same wallets ids!")
+        return v
+
+    @field_validator("amount")
+    def amount_zero(cls, v: Decimal) -> Decimal:
+        if v < 0:
+            raise ValueError("Amount can`t be negative")
+        return v

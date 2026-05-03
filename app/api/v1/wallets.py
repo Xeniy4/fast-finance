@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import (
     APIRouter,
     Depends,
@@ -27,7 +25,7 @@ def get_balance(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user_dependence),
     wallet_name: str | None = None,
-) -> Union[dict[str, int], dict[str, Union[str, int]]]:
+) -> dict:
     return wallets_service.get_wallet(
         db=db, current_user=current_user, wallet_name=wallet_name
     )
