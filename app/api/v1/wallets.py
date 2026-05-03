@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.database_models import User
 from app.dependency import get_current_user_dependence, get_db
-from app.schemas import CreateWalletRequest
+from app.schemas import CreateWalletRequest, WalletResponse
 from app.service import wallets as wallets_service
 
 router = APIRouter()
@@ -25,7 +25,7 @@ def get_balance(
 
 
 # В этом методе имя кошелька(wallet_name) передается в path-параметре
-@router.post("/wallets")
+@router.post("/wallets", response_model=WalletResponse)
 def create_wallet(
     wallet: CreateWalletRequest,
     db: Session = Depends(get_db),

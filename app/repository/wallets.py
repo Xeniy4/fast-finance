@@ -3,8 +3,7 @@ from decimal import Decimal
 from sqlalchemy.orm import Session
 
 from app.database_models import Wallet
-
-# mypy: disable-error-code=no-any-return
+from app.enum import CurrencyEnum
 
 
 def is_wallet_exist(db: Session, user_id: int, wallet_name: str) -> bool:
@@ -106,21 +105,26 @@ def get_all_wallets(db: Session, user_id: int) -> list[Wallet]:
 
 
 def create_wallet(
-    db: Session, user_id: int, wallet_name: str, amount: Decimal
+    db: Session,
+    user_id: int,
+    wallet_name: str,
+    amount: Decimal,
+    currency: CurrencyEnum,
 ) -> Wallet:
-    """Создать новый кошелек
+    """Создать новый кошелек в базе данных
 
     Args:
         db: Сессия БД
         wallet_name: Имя кошелька
         amount: Количество денег
         user_id: Идентификатор юзера, за которого происходит запрос
+        currency: Валюта, по умолчанию rub
 
     Returns:
         Итоговая сумма
     """
     wallet = Wallet(
-        name=wallet_name, balance=amount, user_id=user_id
+        name=wallet_name, balance=amount, user_id=user_id, currency=currency
     )  # создали объект
     db.add(wallet)  # добавили объект в БД
     db.flush()  # добавляет генерацию нового id

@@ -4,6 +4,7 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
+from app.enum import CurrencyEnum
 
 
 class User(Base):
@@ -34,3 +35,4 @@ class Wallet(Base):
     # (у юзера user_id может быть много wallet,
     # но у wallet может быть только 1 user_id)
     # nullable=False - кошелек не может быть создан без юзера
+    currency: Mapped[CurrencyEnum]
