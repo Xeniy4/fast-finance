@@ -1,6 +1,9 @@
 import http
 
-from app.database_models import User, Wallet
+from app.database_models import (
+    User,
+    Wallet,
+)
 from tests.helpers.data_tests import (
     gen_random_amount,
     gen_random_str,

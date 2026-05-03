@@ -12,7 +12,10 @@ from typing import Generator
 
 from fastapi import HTTPException
 from fastapi.params import Depends
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi.security import (
+    HTTPAuthorizationCredentials,
+    HTTPBearer,
+)
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal

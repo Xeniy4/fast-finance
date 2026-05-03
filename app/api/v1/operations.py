@@ -1,10 +1,16 @@
 from typing import Any
 
-from fastapi import APIRouter, Depends
+from fastapi import (
+    APIRouter,
+    Depends,
+)
 from sqlalchemy.orm import Session
 
 from app.database_models import User
-from app.dependency import get_current_user_dependence, get_db
+from app.dependency import (
+    get_current_user_dependence,
+    get_db,
+)
 from app.schemas import OperationRequest
 from app.service import operations as operation_service
 

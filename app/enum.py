@@ -1,4 +1,7 @@
-from enum import StrEnum, auto
+from enum import (
+    StrEnum,
+    auto,
+)
 
 
 class CurrencyEnum(StrEnum):

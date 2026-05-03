@@ -4,13 +4,22 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.orm import (
+    Session,
+    sessionmaker,
+)
 
 from app.database import Base
-from app.database_models import User, Wallet
+from app.database_models import (
+    User,
+    Wallet,
+)
 from app.dependency import get_db
 from main import app
-from tests.helpers.data_tests import gen_random_amount, get_random_name
+from tests.helpers.data_tests import (
+    gen_random_amount,
+    get_random_name,
+)
 from tests.helpers.utils import LoggingClient
 
 logger = logging.getLogger(__name__)
@@ -49,9 +58,9 @@ def get_test_db() -> Generator[Session, None, None]:
         db.close()  # бд отключается
 
 
-app.dependency_overrides[
-    get_db
-] = get_test_db  # dependency_overrides функция заменяется на указанную
+app.dependency_overrides[get_db] = (
+    get_test_db  # dependency_overrides функция заменяется на указанную
+)
 
 
 @pytest.fixture(scope="session")

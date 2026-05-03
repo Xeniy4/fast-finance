@@ -1,7 +1,10 @@
 from decimal import Decimal
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import (
+    Mapped,
+    mapped_column,
+)
 
 from app.database import Base
 from app.enum import CurrencyEnum

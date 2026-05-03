@@ -1,6 +1,9 @@
 import http
 
-from tests.helpers.data_tests import gen_random_amount, gen_random_str
+from tests.helpers.data_tests import (
+    gen_random_amount,
+    gen_random_str,
+)
 from tests.helpers.endpoints import Endpoints
 
 

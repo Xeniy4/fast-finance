@@ -1,30 +1,30 @@
 repos:
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 8.0.1
     hooks:
       - id: isort
         name: isort (python)
         args: [ "--profile", "black" ]
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 26.3.1
     hooks:
       - id: black
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.3.0
     hooks:
       - id: flake8
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.4.0
+    rev: v1.20.0
     hooks:
       - id: mypy
         exclude: ^(tests/|.*migrations/)
         args: [--config-file=pyproject.toml]
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.270'
+    rev: 'v0.15.12'
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]

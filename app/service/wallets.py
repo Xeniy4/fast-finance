@@ -5,7 +5,10 @@ from sqlalchemy.orm import Session
 
 from app.database_models import User
 from app.repository import wallets as wallets_repository
-from app.schemas import CreateWalletRequest, WalletResponse
+from app.schemas import (
+    CreateWalletRequest,
+    WalletResponse,
+)
 
 
 def get_wallet(
