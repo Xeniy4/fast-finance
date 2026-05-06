@@ -11,8 +11,14 @@ main - путь к нашему файлу
 app - инстанс класса  
 --reload - параметр, который перезапустит сервер  
 закрыть сервер Ctrl+C  
-документация {local_host}/docs  
+
+
+**Документация** {local_host}/docs  
 Например: http://127.0.0.1:8000/docs
+
+**Frontend**
+{local_host}/static/index.html  
+Например: http://127.0.0.1:8000/static/index.html
 
 При некорректном выходе из сервера, нужно удалить задачу, прежде чем заново запустить:  
 tasklist | findstr python  

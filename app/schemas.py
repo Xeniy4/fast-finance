@@ -117,3 +117,7 @@ class TransferCreateSchema(BaseModel):
         if v < 0:
             raise ValueError("Amount can`t be negative")
         return v
+
+
+class TotalBalanceResponse(BaseModel):
+    total_balance: Decimal
