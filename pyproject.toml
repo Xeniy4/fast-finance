@@ -16,20 +16,20 @@ force-single-line = false
 [tool.flake8]
 max-line-length = 79
 exclude = ".git,.venv,.tox,build,dist,*migrations*"
-ignore = "E203,W503"
+lint.ignore = "E203,W503"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 warn_return_any = false
 ignore_missing_imports = true
 disallow_untyped_defs = true
-follow_imports = "normal"
+follow_imports = "silent"
 
 [tool.ruff]
-select = ["E", "F", "I", "UP"]
-ignore = []
+lint.select = ["E", "F", "I", "UP"]
+lint.ignore = []
 line-length = 79
 target-version = "py38"
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"

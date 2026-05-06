@@ -49,6 +49,17 @@ def get_operation_list(
     date_from: datetime | None,
     date_to: datetime | None,
 ) -> list[Operation]:
+    """Получение списка операций
+
+    Args:
+        db: Сессия БД
+        wallets_ids: список id кошельков
+        date_from: фильтр даты от
+        date_to: фильтр даты до
+
+    Returns:
+        Operation: модель ответа со списком операций
+    """
     query = db.query(Operation).filter(Operation.wallet_id.in_(wallets_ids))
 
     if date_from:

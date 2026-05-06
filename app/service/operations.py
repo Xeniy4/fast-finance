@@ -174,7 +174,7 @@ def transfer_between_wallets(
         wallet_id=from_wallet.id,
         type=OperationType.TRANSFER,
         amount=target_amount,
-        currency=from_wallet.currency,
+        currency=to_wallet.currency,
         category="Перевод",
     )
     db.add(from_wallet)
