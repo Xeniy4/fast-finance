@@ -64,12 +64,12 @@ def get_operations_list(
 
 
 @router.post("/operations/transfer", response_model=OperationResponse)
-def create_transfer(
+async def create_transfer(
     payload: TransferCreateSchema,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user_dependence),
 ) -> OperationResponse:
-    return operation_service.transfer_between_wallets(
+    return await operation_service.transfer_between_wallets(
         db=db,
         user_id=current_user.id,
         from_wallet_id=payload.from_wallet_id,
